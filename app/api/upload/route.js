@@ -10,7 +10,7 @@ export async function POST(req){
 
     const session = getServerSession(authOptions);
 
-    if(!session){
+    if(!session?.user?.email){
         return Response.json([]);
     }
 
