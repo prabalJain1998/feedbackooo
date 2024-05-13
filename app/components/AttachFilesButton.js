@@ -3,6 +3,7 @@ import { uploadRoutes } from "../utils/constants";
 import axios from "axios";
 
 const AttachFilesButton = ({onNewFiles}) => {
+  
     const [isUploading, setIsUploading] = useState(false);
 
     const handleAttachFileUploadClicked = async (e) =>{
@@ -16,7 +17,6 @@ const AttachFilesButton = ({onNewFiles}) => {
             console.log(`File ${file.name} exceeds the maximum allowed size of 1MB.`);
           }
         }
-        console.log(data);
         const res = await axios.post(uploadRoutes.UPLOAD_ATTACHMENT, data);
         onNewFiles(res.data);
         setIsUploading(false);

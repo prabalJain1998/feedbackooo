@@ -198,7 +198,7 @@ export default function Board(){
           <p className="text-opacity-90 text-slate-700">Start a feedback thread...</p>
         </div>
     
-        <div className="bg-gray-100 px-8 py-2  justify-between flex border-b">
+        <div className="bg-gray-100 px-8 py-2  justify-between flex border-b items-center">
           <div className="flex items-center">
             <select value={sort} onChange={(e) => {
               sortRef.current = e.target.value;

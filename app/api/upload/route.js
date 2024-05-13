@@ -8,18 +8,17 @@ import { ratelimitForS3 } from '../libs/ratelimit';
 export async function POST(req){
     const ip = req.ip || '127.0.0.1';
 
-    const session = getServerSession(authOptions);
-
+    const session =await getServerSession(authOptions);
     if(!session?.user?.email){
         return Response.json([]);
     }
 
     const {success, pending, limit, reset, remaining} = await ratelimitForS3.limit(session?.user?.email+"_s3Cap");
-
+    
     if(!success){
         return Response.json(['']);
     }
-
+    
     const myS3Client = new S3Client(
         {
             region : process.env.REGION,

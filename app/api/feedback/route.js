@@ -80,7 +80,7 @@ export async function GET(req){
    return Response.json(await FeedbackModel.find(filter,null,
     {sort: sortDef,
     skip : loadedRows,
-     limit:10}).populate('user'));
+     limit:20}).populate('user'));
 }
 
 export async function PUT(request){
