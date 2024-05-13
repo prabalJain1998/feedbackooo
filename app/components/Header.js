@@ -19,18 +19,17 @@ const Header = () => {
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
   const [readyToNotify, setReadyToNofity] = useState(false);
 
-
+  const pusher = new Pusher(
+    '4cab9b52af03f652b3f0', 
+      {
+          cluster:'ap2'
+      }
+  );
 
   useEffect(() => {
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
-    const pusher = new Pusher(
-      '4cab9b52af03f652b3f0', 
-        {
-            cluster:'ap2'
-        }
-    );
     var channel = "";
     if(session?.user?.email){
       channel = pusher.subscribe(session?.user?.email);
@@ -42,9 +41,12 @@ const Header = () => {
       channel.bind(NOTIFICATION.NEW_COMMENT, function(data) {   
         notificationRef.current = [...notificationRef.current, data.message];
         setNotification(prevNotification => [...prevNotification, data?.message]);
-    });
-  }
+       });
+
+     
     
+    
+    }
 
     return () => {
       if(channel != ""){

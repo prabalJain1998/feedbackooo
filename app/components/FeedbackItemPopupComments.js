@@ -84,7 +84,7 @@ function handleSaveChangesButtonClicked(e){
   return (
   <div className="p-3 w-full">
     <h1 className="mb-2">Comments</h1>
-    <div className="max-h-40 overflow-y-scroll w-full">
+    <div className="h-full overflow-y-scroll w-full">
       {
         comments?.map((a) =>(
         <div key={a?._id} className="py-1 flex w-full">

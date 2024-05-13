@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button"
 import Popup from "./Popup"
 import axios from 'axios'
@@ -13,6 +13,16 @@ const FeedbackFormPopup = ({setShow, onCreate, feedbackFromData, editMode}) => {
   const [description, setDescription] = useState(feedbackFromData?.description || '');
   const [uploads, setUploads] = useState(feedbackFromData?.uploads || []);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+
+  useEffect(() =>{
+    if(!!title && !! description){
+      setIsDisabled(false);
+    }else{
+      setIsDisabled(true);
+    }
+  },[title, description])
 
   const {data:session} = useSession();
   const isLoggedIn = session?.user?.email;
@@ -37,7 +47,7 @@ const FeedbackFormPopup = ({setShow, onCreate, feedbackFromData, editMode}) => {
             title, description, uploads
           });
         }).catch((err)=>{
-          console.log(err);
+          // console.log(err);
         })
       }
     }
@@ -117,7 +127,7 @@ const FeedbackFormPopup = ({setShow, onCreate, feedbackFromData, editMode}) => {
                 <div className="gap-2 mt-2 flex justify-end">
                       
                 <AttachFilesButton onNewFiles={files => setUploads([...uploads, ...files])} />
-                <Button primary onClick={handleCreatePostButtonClicked}>{ editMode ? "Edit Post":"Create post"}</Button>
+                <Button primary onClick={handleCreatePostButtonClicked} disabled={isDisabled}>{ editMode ? "Edit Post":"Create post"}</Button>
                 </div>
             </form>
 
